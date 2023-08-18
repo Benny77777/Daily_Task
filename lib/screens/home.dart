@@ -1,6 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:note_app/model/note.dart';
+import 'package:note_app/screens/Page2.dart';
+import 'package:note_app/screens/todo.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,28 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'Notes',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.normal),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  padding: const EdgeInsets.all(0),
-                  icon: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(
-                        Icons.sort,
-                        color: Colors.white,
-                      )),
-                )
               ],
             ),
             const SizedBox(
@@ -68,41 +58,79 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-                child: ListView(
-              children: [
-                Card(
-                  child: ListTile(
-                    title: RichText(
-                      text: const TextSpan(
-                        text: 'like:\n',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          height: 1.5,
+                child: ListView.builder(
+              itemCount: sampleNotes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: Colors.black87,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListTile(
+                      title: RichText(
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        text: const TextSpan(
+                          text: 'Python',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            height: 1.5,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: DateFormat.ABBR_MONTH_DAY,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                  height: 1.5,
+                                ))
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                              text: 'thanks',
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "heap",
+                              textAlign: TextAlign.start,
                               style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                                height: 1.5,
-                              ))
-                        ],
+                                  fontSize: 10,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '10:38, August 17,2023',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    subtitle: const Text('Edited'),
                   ),
-                )
-              ],
+                );
+              },
             ))
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Page2(),
+              ));
+        },
+        elevation: 10,
         backgroundColor: Colors.blue.shade700,
         child: const Icon(
           Icons.add,
@@ -116,10 +144,53 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SizedBox(
           height: kBottomNavigationBarHeight,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.note)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.check))
+              Column(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ));
+                      },
+                      icon: const Icon(
+                        Icons.notes,
+                        color: Colors.white,
+                      )),
+                  const Text(
+                    'Notes',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Todo(),
+                          ));
+                    },
+                    icon: const Icon(Icons.check_circle_outline_outlined),
+                    color: Colors.white,
+                  ),
+                  const Text(
+                    'To-dos',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              )
             ],
           ),
         ),
