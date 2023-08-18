@@ -1,8 +1,16 @@
-import 'package:daily_widget_task/page1.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/screens/home.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: Page1(),
-  ));
+  runApp(const MainApp());
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: HomeScreen());
+  }
 }

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.daily_widget_task">
+    package="com.example.note_app">
    <application
-        android:label="daily_widget_task"
+        android:label="note_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

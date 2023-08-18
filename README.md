@@ -1,4 +1,4 @@
-# daily_widget_task
+# note_app
 
 A new Flutter project.
 
